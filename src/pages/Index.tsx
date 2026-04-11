@@ -7,46 +7,94 @@ const ABOUT_IMG = "https://cdn.poehali.dev/projects/a63db8e5-d539-4d8d-908a-9171
 const NAV_LINKS = [
   { id: "hero", label: "Главная" },
   { id: "about", label: "Об игре" },
+  { id: "modes", label: "Режимы" },
+  { id: "maps", label: "Карты" },
   { id: "news", label: "Новости" },
   { id: "download", label: "Скачать" },
 ];
 
+const MODES = [
+  {
+    icon: "Swords",
+    tag: "PVP",
+    title: "Deathmatch",
+    players: "8 игроков",
+    duration: "10 мин",
+    desc: "Классический режим «все против всех». Побеждает тот, кто первым наберёт 30 фрагов или окажется на вершине таблицы к концу матча.",
+  },
+  {
+    icon: "Flame",
+    tag: "PVE",
+    title: "Выживание",
+    players: "1–4 игрока",
+    duration: "Без лимита",
+    desc: "Одиночный или кооперативный режим. Отбивайся от волн противников, собирай ресурсы и держись как можно дольше в горящей зоне.",
+  },
+];
+
+const MAPS = [
+  {
+    name: "Руины",
+    type: "Deathmatch",
+    size: "Средняя",
+    desc: "Разрушенный город с узкими улицами и укрытиями. Идеально для ближнего боя.",
+  },
+  {
+    name: "Склад",
+    type: "Deathmatch",
+    size: "Малая",
+    desc: "Промзона с контейнерами и балконами. Быстрые матчи и вертикальный геймплей.",
+  },
+  {
+    name: "Полигон",
+    type: "Выживание",
+    size: "Большая",
+    desc: "Открытая местность с бункерами. Волны врагов усиливаются каждые 3 минуты.",
+  },
+  {
+    name: "Лаборатория",
+    type: "Выживание",
+    size: "Средняя",
+    desc: "Заброшенный комплекс с лабиринтами коридоров. Мало света, много сюрпризов.",
+  },
+];
+
 const NEWS = [
   {
-    date: "10 апр 2026",
-    tag: "Обновление",
-    title: "Патч 2.4: Новый режим «Инферно»",
-    desc: "Огненная арена с 16 игроками, новое оружие и переработанная система рейтинга.",
+    date: "11 апр 2026",
+    tag: "Запуск",
+    title: "Fire Strike вышла в ранний доступ",
+    desc: "Сегодня мы открываем двери первым игрокам. Версия 0.1.0 доступна для скачивания — спасибо, что с нами с самого начала.",
+  },
+  {
+    date: "05 апр 2026",
+    tag: "Дорожная карта",
+    title: "Что будет в ближайших обновлениях",
+    desc: "Рассказываем о планах: новые карты, балансировка оружия, система прогресса и первый PVE-рейд уже летом.",
   },
   {
     date: "28 мар 2026",
-    tag: "Событие",
-    title: "Сезон 8: Пепел и сталь",
-    desc: "Начинается новый боевой сезон с уникальными скинами и эксклюзивными наградами.",
-  },
-  {
-    date: "15 мар 2026",
-    tag: "Турнир",
-    title: "Fire Strike Championship 2026",
-    desc: "Призовой фонд $50 000. Регистрация команд открыта до 1 мая 2026 года.",
+    tag: "Девблог",
+    title: "Как мы делали огненную физику",
+    desc: "Разработчики делятся деталями: как распространяется пламя, горят укрытия и меняется тактика боя в реальном времени.",
   },
 ];
 
 const SYS_REQS = {
   min: [
     { label: "ОС", value: "Windows 10 64-bit" },
-    { label: "CPU", value: "Intel Core i5-4460 / AMD FX-6300" },
-    { label: "RAM", value: "8 ГБ" },
-    { label: "GPU", value: "GTX 960 / RX 480 (4 ГБ VRAM)" },
-    { label: "Место", value: "35 ГБ SSD" },
+    { label: "CPU", value: "Intel Core i3 / Ryzen 3" },
+    { label: "RAM", value: "6 ГБ" },
+    { label: "GPU", value: "GTX 750 Ti (2 ГБ VRAM)" },
+    { label: "Место", value: "12 ГБ" },
     { label: "DirectX", value: "Версия 11" },
   ],
   rec: [
     { label: "ОС", value: "Windows 11 64-bit" },
-    { label: "CPU", value: "Intel Core i7-8700K / AMD Ryzen 5 3600" },
-    { label: "RAM", value: "16 ГБ" },
-    { label: "GPU", value: "RTX 2070 / RX 6700 XT (8 ГБ VRAM)" },
-    { label: "Место", value: "35 ГБ SSD (NVMe)" },
+    { label: "CPU", value: "Intel Core i5 / Ryzen 5" },
+    { label: "RAM", value: "12 ГБ" },
+    { label: "GPU", value: "GTX 1060 / RX 580 (4 ГБ VRAM)" },
+    { label: "Место", value: "12 ГБ SSD" },
     { label: "DirectX", value: "Версия 12" },
   ],
 };
@@ -153,8 +201,8 @@ export default function Index() {
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
           <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-[#FF4500]/30 bg-[#FF4500]/10 animate-fade-in"
             style={{ animationDelay: "0.1s", opacity: 0 }}>
-            <Icon name="Zap" size={14} className="text-[#FF4500]" />
-            <span className="font-display text-xs tracking-widest uppercase text-[#FF6A00]">Сезон 8 — Пепел и сталь</span>
+            <span className="w-2 h-2 rounded-full bg-[#FF4500] animate-pulse" />
+            <span className="font-display text-xs tracking-widest uppercase text-[#FF6A00]">Ранний доступ · v0.1.0</span>
           </div>
 
           <h1 className="font-display font-bold uppercase leading-none mb-6 animate-fade-in"
@@ -165,7 +213,7 @@ export default function Index() {
 
           <p className="text-[#999] text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed animate-fade-in"
             style={{ animationDelay: "0.4s", opacity: 0 }}>
-            Эпический шутер с огненными аренами. Выживи, победи, стань легендой.
+            Свежий шутер с огненными аренами. Два режима, четыре карты, одно пламя. Мы только начали — играй с нами с первого дня.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in"
@@ -185,9 +233,9 @@ export default function Index() {
           <div className="flex items-center justify-center gap-10 mt-16 animate-fade-in"
             style={{ animationDelay: "0.8s", opacity: 0 }}>
             {[
-              { val: "12M+", label: "Игроков" },
-              { val: "150+", label: "Карт" },
-              { val: "4.8", label: "Рейтинг" },
+              { val: "2", label: "Режима" },
+              { val: "4", label: "Карты" },
+              { val: "0.1.0", label: "Версия" },
             ].map((s) => (
               <div key={s.label} className="text-center">
                 <div className="font-display text-2xl md:text-3xl font-bold text-[#FF4500]">{s.val}</div>
@@ -212,21 +260,21 @@ export default function Index() {
               — Об игре
             </span>
             <h2 className="section-title text-4xl md:text-5xl mb-6 leading-tight">
-              Пламя войны<br />в твоих руках
+              Пламя только<br />разгорается
             </h2>
             <p className="text-[#888] leading-relaxed mb-6">
-              Fire Strike — это высокоинтенсивный тактический шутер, где каждое сражение решается долями секунды. Огненные арены, продуманная механика и миллионы противников по всему миру.
+              Fire Strike — инди-шутер от небольшой команды энтузиастов. Мы только что выпустили первую версию и приглашаем тебя стать частью истории с самого начала.
             </p>
             <p className="text-[#888] leading-relaxed mb-10">
-              Выбирай класс бойца, прокачивай снаряжение и сражайся в командных режимах или одиночном выживании. Каждый матч — новая история победы или поражения.
+              В игре пока 2 режима и 4 карты — но каждая деталь вылизана вручную. Мы слушаем сообщество и добавляем новый контент каждую неделю.
             </p>
 
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: "Swords", label: "10+ режимов игры" },
-                { icon: "Map", label: "150+ уникальных карт" },
-                { icon: "Trophy", label: "Рейтинговые матчи" },
-                { icon: "Users", label: "Клановые войны" },
+                { icon: "Swords", label: "2 режима игры" },
+                { icon: "Map", label: "4 тщательных карты" },
+                { icon: "Flame", label: "Огненная физика" },
+                { icon: "MessageCircle", label: "Живое комьюнити" },
               ].map((f) => (
                 <div key={f.label} className="flex items-center gap-3 text-[#ccc]">
                   <div className="w-8 h-8 rounded flex items-center justify-center bg-[#FF4500]/10 border border-[#FF4500]/20 shrink-0">
@@ -244,14 +292,105 @@ export default function Index() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0B]/60 to-transparent" />
             </div>
             <div className="absolute -bottom-4 -left-4 stat-card rounded-sm">
-              <div className="font-display text-2xl font-bold text-[#FF4500]">60 FPS</div>
-              <div className="text-xs text-[#666] tracking-wider uppercase mt-1">Стабильный фреймрейт</div>
+              <div className="font-display text-2xl font-bold text-[#FF4500]">v0.1.0</div>
+              <div className="text-xs text-[#666] tracking-wider uppercase mt-1">Ранний доступ</div>
             </div>
             <div className="absolute -top-4 -right-4 stat-card rounded-sm">
-              <div className="font-display text-2xl font-bold text-[#FF4500]">&lt;20ms</div>
-              <div className="text-xs text-[#666] tracking-wider uppercase mt-1">Пинг серверов</div>
+              <div className="font-display text-2xl font-bold text-[#FF4500]">День 1</div>
+              <div className="text-xs text-[#666] tracking-wider uppercase mt-1">Только старт</div>
             </div>
           </div>
+        </div>
+
+        <div className="gradient-line mt-16" />
+      </section>
+
+      {/* MODES */}
+      <section id="modes" className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <div className="mb-12">
+          <span className="font-display text-xs tracking-widest uppercase text-[#FF4500] mb-4 block">— Режимы</span>
+          <h2 className="section-title text-4xl md:text-5xl">Два способа гореть</h2>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {MODES.map((mode, i) => (
+            <div key={mode.title} className="card-dark rounded-sm p-8 relative overflow-hidden group animate-fade-in"
+              style={{ animationDelay: `${i * 0.15}s`, opacity: 0 }}>
+              <div className="absolute -right-12 -top-12 w-48 h-48 rounded-full opacity-[0.04] group-hover:opacity-10 transition-opacity"
+                style={{ background: "radial-gradient(circle, #FF4500, transparent 70%)" }} />
+
+              <div className="relative">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-14 h-14 rounded flex items-center justify-center border border-[#FF4500]/30 bg-[#FF4500]/10">
+                    <Icon name={mode.icon} fallback="Swords" size={26} className="text-[#FF4500]" />
+                  </div>
+                  <span className="text-[10px] font-display tracking-widest uppercase px-3 py-1 rounded-full bg-[#FF4500]/10 text-[#FF4500] border border-[#FF4500]/20">
+                    {mode.tag}
+                  </span>
+                </div>
+
+                <h3 className="font-display text-3xl font-bold uppercase tracking-wide text-white mb-2">{mode.title}</h3>
+                <div className="flex items-center gap-4 text-xs text-[#666] mb-5 font-display tracking-wider uppercase">
+                  <div className="flex items-center gap-1.5">
+                    <Icon name="Users" size={12} />
+                    <span>{mode.players}</span>
+                  </div>
+                  <span className="text-[#333]">•</span>
+                  <div className="flex items-center gap-1.5">
+                    <Icon name="Clock" size={12} />
+                    <span>{mode.duration}</span>
+                  </div>
+                </div>
+                <p className="text-[#888] text-sm leading-relaxed">{mode.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* MAPS */}
+      <section id="maps" className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <div className="gradient-line mb-16" />
+
+        <div className="mb-12 flex items-end justify-between flex-wrap gap-4">
+          <div>
+            <span className="font-display text-xs tracking-widest uppercase text-[#FF4500] mb-4 block">— Карты</span>
+            <h2 className="section-title text-4xl md:text-5xl">Четыре арены</h2>
+          </div>
+          <div className="text-xs text-[#555] font-display tracking-widest uppercase">
+            Новые карты каждую неделю →
+          </div>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {MAPS.map((map, i) => (
+            <div key={map.name} className="card-dark rounded-sm p-6 group cursor-pointer animate-fade-in"
+              style={{ animationDelay: `${i * 0.1}s`, opacity: 0 }}>
+              <div className="relative aspect-[4/3] mb-5 overflow-hidden rounded-sm bg-[#0A0A0B] border border-[#1E1E24]">
+                <div className="absolute inset-0"
+                  style={{
+                    background: `linear-gradient(135deg, rgba(255,69,0,0.15) 0%, transparent 60%),
+                                 repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(255,69,0,0.06) 12px, rgba(255,69,0,0.06) 13px)`,
+                  }} />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="font-display text-6xl font-bold text-[#FF4500]/15 group-hover:text-[#FF4500]/40 transition-colors">
+                    0{i + 1}
+                  </div>
+                </div>
+                <div className="absolute top-3 left-3 text-[10px] font-display tracking-widest uppercase px-2 py-1 rounded bg-[#0A0A0B]/80 border border-[#1E1E24] text-[#999]">
+                  {map.type}
+                </div>
+                <div className="absolute bottom-3 right-3 text-[10px] font-display tracking-widest uppercase text-[#666]">
+                  {map.size}
+                </div>
+              </div>
+
+              <h3 className="font-display text-xl font-bold uppercase tracking-wide text-white mb-2 group-hover:text-[#FF4500] transition-colors">
+                {map.name}
+              </h3>
+              <p className="text-[#777] text-xs leading-relaxed">{map.desc}</p>
+            </div>
+          ))}
         </div>
 
         <div className="gradient-line mt-16" />
@@ -299,7 +438,7 @@ export default function Index() {
           <button className="fire-btn px-10 py-5 text-base rounded flex items-center gap-3 justify-center">
             <Icon name="Monitor" size={22} />
             <span>Скачать для Windows</span>
-            <span className="text-xs opacity-70 font-body normal-case font-normal ml-1">35 ГБ · v2.4.1</span>
+            <span className="text-xs opacity-70 font-body normal-case font-normal ml-1">12 ГБ · v0.1.0</span>
           </button>
           <button className="px-10 py-5 text-base rounded border border-[#1E1E24] text-[#ccc] hover:border-[#FF4500]/40 hover:text-white transition-all flex items-center gap-3 justify-center">
             <Icon name="Apple" size={22} />
