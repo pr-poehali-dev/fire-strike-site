@@ -32,6 +32,93 @@ const MODES = [
   },
 ];
 
+const MAP_ICONS: Record<string, React.ReactNode> = {
+  Factory: (
+    <svg viewBox="0 0 80 60" fill="none" className="w-full h-full opacity-60 group-hover:opacity-90 transition-opacity">
+      {/* Здание завода */}
+      <rect x="8" y="30" width="22" height="22" stroke="#FF4500" strokeWidth="1.5" fill="rgba(255,69,0,0.07)" />
+      <rect x="50" y="36" width="22" height="16" stroke="#FF4500" strokeWidth="1.5" fill="rgba(255,69,0,0.07)" />
+      {/* Трубы */}
+      <rect x="14" y="18" width="5" height="14" stroke="#FF6A00" strokeWidth="1.2" fill="rgba(255,106,0,0.1)" />
+      <rect x="22" y="22" width="5" height="10" stroke="#FF6A00" strokeWidth="1.2" fill="rgba(255,106,0,0.1)" />
+      <rect x="56" y="24" width="5" height="14" stroke="#FF6A00" strokeWidth="1.2" fill="rgba(255,106,0,0.1)" />
+      {/* Дым */}
+      <circle cx="16" cy="16" r="3" stroke="#FF4500" strokeWidth="1" fill="none" opacity="0.4" />
+      <circle cx="16" cy="11" r="2" stroke="#FF4500" strokeWidth="0.8" fill="none" opacity="0.25" />
+      <circle cx="58" cy="22" r="3" stroke="#FF4500" strokeWidth="1" fill="none" opacity="0.4" />
+      {/* Конвейер */}
+      <line x1="30" y1="44" x2="50" y2="44" stroke="#FF4500" strokeWidth="1.5" strokeDasharray="3 2" />
+      <line x1="30" y1="48" x2="50" y2="48" stroke="#FF4500" strokeWidth="1" strokeDasharray="3 2" opacity="0.5" />
+      {/* Точки закладки A / B */}
+      <circle cx="12" cy="56" r="4" fill="rgba(255,69,0,0.2)" stroke="#FF4500" strokeWidth="1.2" />
+      <text x="12" y="59.5" textAnchor="middle" fontSize="5" fill="#FF4500" fontFamily="monospace" fontWeight="bold">A</text>
+      <circle cx="68" cy="40" r="4" fill="rgba(255,69,0,0.2)" stroke="#FF4500" strokeWidth="1.2" />
+      <text x="68" y="43.5" textAnchor="middle" fontSize="5" fill="#FF4500" fontFamily="monospace" fontWeight="bold">B</text>
+    </svg>
+  ),
+  Arabic: (
+    <svg viewBox="0 0 80 60" fill="none" className="w-full h-full opacity-60 group-hover:opacity-90 transition-opacity">
+      {/* Купол мечети */}
+      <path d="M32 30 Q40 14 48 30" stroke="#FF4500" strokeWidth="1.5" fill="rgba(255,69,0,0.07)" />
+      <rect x="32" y="30" width="16" height="12" stroke="#FF4500" strokeWidth="1.5" fill="rgba(255,69,0,0.07)" />
+      {/* Минарет */}
+      <rect x="12" y="20" width="6" height="22" stroke="#FF6A00" strokeWidth="1.2" fill="rgba(255,106,0,0.07)" />
+      <path d="M12 20 Q15 14 18 20" stroke="#FF6A00" strokeWidth="1.2" fill="rgba(255,106,0,0.1)" />
+      <rect x="62" y="20" width="6" height="22" stroke="#FF6A00" strokeWidth="1.2" fill="rgba(255,106,0,0.07)" />
+      <path d="M62 20 Q65 14 68 20" stroke="#FF6A00" strokeWidth="1.2" fill="rgba(255,106,0,0.1)" />
+      {/* Арочные окна */}
+      <path d="M37 35 Q40 30 43 35 L43 42 L37 42 Z" stroke="#FF4500" strokeWidth="1" fill="rgba(255,69,0,0.12)" />
+      {/* Переулки */}
+      <line x1="18" y1="42" x2="32" y2="42" stroke="#FF4500" strokeWidth="1" opacity="0.5" />
+      <line x1="48" y1="42" x2="62" y2="42" stroke="#FF4500" strokeWidth="1" opacity="0.5" />
+      <line x1="8" y1="52" x2="72" y2="52" stroke="#FF4500" strokeWidth="1.2" />
+      {/* Точки закладки */}
+      <circle cx="10" cy="48" r="4" fill="rgba(255,69,0,0.2)" stroke="#FF4500" strokeWidth="1.2" />
+      <text x="10" y="51.5" textAnchor="middle" fontSize="5" fill="#FF4500" fontFamily="monospace" fontWeight="bold">A</text>
+      <circle cx="70" cy="48" r="4" fill="rgba(255,69,0,0.2)" stroke="#FF4500" strokeWidth="1.2" />
+      <text x="70" y="51.5" textAnchor="middle" fontSize="5" fill="#FF4500" fontFamily="monospace" fontWeight="bold">B</text>
+    </svg>
+  ),
+  Склад: (
+    <svg viewBox="0 0 80 60" fill="none" className="w-full h-full opacity-60 group-hover:opacity-90 transition-opacity">
+      {/* Основное здание */}
+      <path d="M10 28 L40 14 L70 28 L70 52 L10 52 Z" stroke="#FF4500" strokeWidth="1.5" fill="rgba(255,69,0,0.06)" />
+      {/* Ворота */}
+      <rect x="30" y="38" width="20" height="14" stroke="#FF6A00" strokeWidth="1.2" fill="rgba(255,106,0,0.1)" />
+      {/* Контейнеры */}
+      <rect x="14" y="38" width="10" height="8" stroke="#FF4500" strokeWidth="1" fill="rgba(255,69,0,0.08)" />
+      <rect x="56" y="38" width="10" height="8" stroke="#FF4500" strokeWidth="1" fill="rgba(255,69,0,0.08)" />
+      <rect x="14" y="30" width="10" height="7" stroke="#FF4500" strokeWidth="1" fill="rgba(255,69,0,0.08)" />
+      <rect x="56" y="30" width="10" height="7" stroke="#FF4500" strokeWidth="1" fill="rgba(255,69,0,0.08)" />
+      {/* Балкон */}
+      <line x1="10" y1="34" x2="30" y2="34" stroke="#FF6A00" strokeWidth="1" strokeDasharray="2 2" />
+      <line x1="50" y1="34" x2="70" y2="34" stroke="#FF6A00" strokeWidth="1" strokeDasharray="2 2" />
+      {/* Крест прицела на крыше */}
+      <line x1="38" y1="20" x2="42" y2="20" stroke="#FF4500" strokeWidth="1" opacity="0.6" />
+      <line x1="40" y1="18" x2="40" y2="22" stroke="#FF4500" strokeWidth="1" opacity="0.6" />
+    </svg>
+  ),
+  Руины: (
+    <svg viewBox="0 0 80 60" fill="none" className="w-full h-full opacity-60 group-hover:opacity-90 transition-opacity">
+      {/* Разрушенные стены */}
+      <path d="M8 52 L8 26 L16 26 L16 18 L22 18 L22 26 L28 26 L28 34 L28 52" stroke="#FF4500" strokeWidth="1.5" fill="rgba(255,69,0,0.06)" />
+      <path d="M52 52 L52 30 L58 30 L58 20 L68 20 L68 30 L72 30 L72 52" stroke="#FF4500" strokeWidth="1.5" fill="rgba(255,69,0,0.06)" />
+      {/* Обломки */}
+      <line x1="28" y1="38" x2="38" y2="38" stroke="#FF6A00" strokeWidth="1.2" />
+      <line x1="42" y1="42" x2="52" y2="42" stroke="#FF6A00" strokeWidth="1.2" />
+      <rect x="34" y="44" width="12" height="8" stroke="#FF4500" strokeWidth="1" fill="rgba(255,69,0,0.06)" />
+      {/* Улица */}
+      <line x1="8" y1="52" x2="72" y2="52" stroke="#FF4500" strokeWidth="1.5" />
+      {/* Трещины */}
+      <path d="M14 26 L12 30 L16 34" stroke="#FF6A00" strokeWidth="0.8" opacity="0.5" />
+      <path d="M62 20 L60 26 L64 28" stroke="#FF6A00" strokeWidth="0.8" opacity="0.5" />
+      {/* Фрагменты */}
+      <rect x="30" y="50" width="4" height="4" stroke="#FF4500" strokeWidth="0.8" fill="rgba(255,69,0,0.08)" transform="rotate(15 32 52)" />
+      <rect x="46" y="48" width="3" height="3" stroke="#FF4500" strokeWidth="0.8" fill="rgba(255,69,0,0.08)" transform="rotate(-10 47 50)" />
+    </svg>
+  ),
+};
+
 const MAPS = [
   {
     name: "Factory",
@@ -372,10 +459,12 @@ export default function Index() {
                     background: `linear-gradient(135deg, rgba(255,69,0,0.15) 0%, transparent 60%),
                                  repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(255,69,0,0.06) 12px, rgba(255,69,0,0.06) 13px)`,
                   }} />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="font-display text-6xl font-bold text-[#FF4500]/15 group-hover:text-[#FF4500]/40 transition-colors">
-                    0{i + 1}
-                  </div>
+                <div className="absolute inset-0 flex items-center justify-center p-4">
+                  {MAP_ICONS[map.name] ?? (
+                    <div className="font-display text-6xl font-bold text-[#FF4500]/15 group-hover:text-[#FF4500]/40 transition-colors">
+                      0{i + 1}
+                    </div>
+                  )}
                 </div>
                 <div className="absolute top-3 left-3 text-[10px] font-display tracking-widest uppercase px-2 py-1 rounded bg-[#0A0A0B]/80 border border-[#1E1E24] text-[#999]">
                   {map.type}
